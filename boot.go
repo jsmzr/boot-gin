@@ -9,11 +9,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-const configPrefix = "boot.gin"
+const configPrefix = "boot.gin."
 
 var routerInitFuncions []func(*gin.Engine)
 
-var defaultConfig map[string]interface{} = map[string]interface{}{"port": 8080}
+var defaultConfig map[string]interface{} = map[string]interface{}{
+	"port": 8080,
+}
 
 func log(message string) {
 	fmt.Printf("[BOOT-GIN] %v| %s\n", time.Now().Format("2006-01-02 15:04:05"), message)
@@ -37,11 +39,11 @@ func Run() error {
 		f(engine)
 	}
 	log("init gin service")
-	return engine.Run(fmt.Sprintf(":%d", viper.GetInt(configPrefix+".port")))
+	return engine.Run(fmt.Sprintf(":%d", viper.GetInt(configPrefix+"port")))
 }
 
 func init() {
 	for key := range defaultConfig {
-		viper.SetDefault(configPrefix+"."+key, defaultConfig[key])
+		viper.SetDefault(configPrefix+key, defaultConfig[key])
 	}
 }

@@ -3,11 +3,15 @@
 [![Build Status](https://github.com/jsmzr/boot-gin/workflows/Run%20Tests/badge.svg?branch=main)](https://github.com/jsmzr/boot-gin/actions?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/jsmzr/boot-gin/branch/main/graph/badge.svg?token=HNQCAN3UVR)](https://codecov.io/gh/jsmzr/boot-gin)
 
-提供 gin 框架的 boot 支持
+gin 的 boot 适配库，灵活的使用 boot 系列库的能力，并简化 gin 路由和全局中间件使用。遵循约定大于配置，简化项目的搭建与使用。
+
+- 约定大于配置，插件+配置的方式直接使用，降低接入成本
+- 路由注册，简化路由管理
+- 全局中间件，简化全局中间件及第三方中间件使用
 
 ## 使用说明
 
-项目运行，[详细示例](https://github.com/jsmzr/gin-boot-example)
+项目运行，[详细示例](https://github.com/jsmzr/gin-boot-example)。
 
 ```go
 package main
@@ -16,13 +20,12 @@ import (
 	"fmt"
 
 	boot "github.com/jsmzr/boot-gin"
-    // 通过声明的方式引入需要使用的插件
-	_ "github.com/jsmzr/boot-plugin-config-yaml"
+    // boot 系列插件的注册
 	_ "github.com/jsmzr/boot-plugin-logrus"
-	_ "github.com/jsmzr/boot-plugin-prometheus"
-	_ "github.com/jsmzr/gin-boot-example/demo"
+	// 路由注册
+	_ "github.com/jsmzr/gin-boot-example/router"
+	// 全局中间件注册
 	_ "github.com/jsmzr/gin-boot-example/middlewares"
-	_ "github.com/jsmzr/gin-boot-example/user"
 )
 
 func main() {
